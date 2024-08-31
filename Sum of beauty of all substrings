@@ -1,0 +1,52 @@
+class Solution {
+    	
+	public static int calculateMax(int[] arr) {
+		int max = Integer.MIN_VALUE;
+		
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i] > max) {
+				max = arr[i];
+			}
+		}
+		return max;
+	}
+	
+	public static int calculateMin(int[] arr) {
+		int min = Integer.MAX_VALUE;
+		
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i] < min && arr[i]!=0) {
+				min = arr[i];
+			}
+		}
+		return min;
+	}
+
+    public int beautySum(String s) {
+        int[] characters = new int[26];
+		
+		//String s = "aabcbaa";
+		int n = s.length();
+		int beautySum = 0;
+		
+		for(int i=0;i<n;i++) {
+			Arrays.fill(characters, 0);
+			
+			for(int j=i;j<n;j++) {
+				
+				int pos = (int)s.charAt(j) - (int)'a';
+				// this element has occurred, so increase its frequency by 1
+				
+				characters[pos]++;
+				
+				int minFreq = calculateMin(characters);
+				int maxFreq = calculateMax(characters);
+				
+				if(minFreq!= 0)
+					beautySum += maxFreq - minFreq;
+				//System.out.println(Arrays.toString(characters));
+			}
+		}
+        return beautySum;
+    }
+}
