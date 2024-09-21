@@ -1,0 +1,58 @@
+package com.practiceProblems.java;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class SortCharactersByFrequency {
+
+	public static void main(String[] args) {
+		
+		String s = "tree";
+		int n = s.length();
+		HashMap<Character,Integer> d = new HashMap<>();
+		HashMap<Integer,ArrayList<Character>> freq = new HashMap<>();
+		
+		for(char i : s.toCharArray()) {
+			int value = d.getOrDefault(i, 0) + 1;
+			d.put(i, value);
+		}
+		
+		System.out.println(d.toString());
+		
+		for(Character key : d.keySet()) {
+			ArrayList<Character> v;
+			int value = d.get(key);
+			
+			if(!freq.containsKey(value)) {
+				
+				v = new ArrayList<>();
+				v.add(key);
+				
+				freq.put(value, v);
+			}
+			else {
+				v = freq.get(value);
+				v.add(key);
+				freq.put(value, v);
+			}
+			
+			
+		}
+		System.out.println(freq.toString());
+		
+		String ans = "";
+		for(int i = n; i>=0; i--) {
+			if(freq.containsKey(i)) {
+				for(Character character : freq.get(i)) {
+					for(int j = 0; j < i ; j++) {
+						ans += character;
+					}
+				}
+			}
+		}
+		
+		System.out.println(ans);
+
+	}
+
+}
