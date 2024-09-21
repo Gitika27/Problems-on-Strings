@@ -1,0 +1,52 @@
+package com.practiceProblems.java;
+
+import java.util.HashMap;
+
+public class RomanToInteger {
+
+	public static void main(String[] args) {
+		
+		String s = "LVIII";
+		int n = s.length();
+		int ans = 0;
+		int i = n-1;
+		
+		/*
+		I             1
+		V             5
+		X             10
+		L             50
+		C             100
+		D             500
+		M             1000
+		*/
+		
+		HashMap<Character,Integer> d = new HashMap<>();
+		d.put('I', 1);
+		d.put('V', 5);
+		d.put('X', 10);
+		d.put('L', 50);
+		d.put('C', 100);
+		d.put('D', 500);
+		d.put('M', 1000);
+		
+		while(i>=0) {
+			
+			if(i==0) {
+				ans += d.get(s.charAt(i));
+				i--;
+			}
+			else if (d.get(s.charAt(i)) > d.get(s.charAt(i-1))) {
+				ans += d.get(s.charAt(i)) - d.get(s.charAt(i-1));
+				i-=2;
+			}
+			else {
+				ans += d.get(s.charAt(i));
+				i-=1;
+			}
+		}
+
+		System.out.println(ans);
+	}
+
+}
