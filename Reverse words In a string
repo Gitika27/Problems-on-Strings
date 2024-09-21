@@ -1,0 +1,34 @@
+class Solution {
+
+
+    public String reverseWords(String s) {
+        
+        String[] words = s.split("\\s+");
+        int n = words.length;
+        String ans = "";
+        int low = 0;
+        int high = n-1;
+
+        while(low<=high){
+            String temp = words[low];
+            words[low] = words[high];
+            words[high] = temp;
+            low+=1;
+            high-=1;
+        }
+
+        for(String word : words){
+            ans += word;
+            ans += " ";
+        }
+        //System.out.println(Arrays.toString(words));
+        return ans.trim();
+
+
+
+    }
+}
+
+
+Input: s = "the sky is blue"
+Output: "blue is sky the"
