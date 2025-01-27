@@ -1,0 +1,60 @@
+package CodingProblems;
+
+public class AddBinary {
+    public static String addBinary(String a, String b) {
+        String ans = "";
+
+        int n1 = a.length();
+        int n2 = b.length();
+
+//        int a1 = (int)a.charAt(n1-1);
+//        int b1 = (int)b.charAt(n2-1); // this will give ascii value of 1 that is 49
+//        System.out.println(a1+b1); // "1" + "1" --> 49 because java will convert them into ascii letters
+
+        int carry = 0;
+        int sum = 0;
+        int i = n1-1;
+        int j = n2-1;
+        while(i >= 0 && j >=0){
+
+            int bit1 = a.charAt(i) - '0';
+            int bit2 = b.charAt(j) - '0';
+            sum = (bit1 + bit2 + carry) % 2;
+            carry = (bit1 + bit2 + carry) / 2;
+            ans = sum + ans;
+            i-=1;
+            j-=1;
+        }
+
+        for(int k = i ; k >= 0; k--){
+            int bit1 = a.charAt(k) - '0';
+            int bit2 = 0;
+            sum = (bit1 + bit2 + carry) % 2;
+            carry = (bit1 + bit2 + carry) / 2;
+            ans = sum + ans;
+        }
+
+        for(int k = j ; k >= 0; k--){
+            int bit1 = 0;
+            int bit2 =  b.charAt(k) - '0';
+            sum = (bit1 + bit2 + carry) % 2;
+            carry = (bit1 + bit2 + carry) / 2;
+            System.out.println("sum is "+sum+" bit2 is "+bit2);
+            ans = sum + ans;
+        }
+
+        if(carry != 0){
+            ans = carry + ans;
+        }
+
+        return ans;
+
+    }
+
+    public static void main(String[] args) {
+        String a = "100";
+        String b = "110010";
+        System.out.println(addBinary(a,b));
+    }
+
+}
