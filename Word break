@@ -1,0 +1,40 @@
+class Solution {
+    
+    
+    public boolean solution(String s, HashSet<String> set,HashMap<String,Boolean> goodWords){
+
+        int n = s.length();
+
+        if (goodWords.containsKey(s)) {
+            return goodWords.get(s);
+        }
+
+        if(set.contains(s)) {
+            goodWords.put(s,true);
+            return true;
+        }
+        for(int j = 1; j < n; j++){
+            String left = s.substring(0,j);
+            String right = s.substring(j,n);
+
+            if(set.contains(left) ){
+                if(solution(right,set,goodWords))
+                {
+                    goodWords.put(s,true);
+                    return true;
+                }
+            }
+        }
+       goodWords.put(s,false);
+       return false;
+    }
+
+    public boolean wordBreak(String s, List<String> wordDict) {
+        HashSet<String> set = new HashSet<>();
+        for(String word : wordDict){
+            set.add(word);
+        }
+        HashMap<String,Boolean> goodWords = new HashMap<>();
+        return solution(s,set,goodWords);
+    }
+}
