@@ -1,0 +1,25 @@
+class Solution {
+    public boolean check(HashMap<Character,Integer> d, int k){
+        for(Character key : d.keySet()){
+            if(d.get(key) < k) return false;
+        }
+        return true;
+    }
+    public int longestSubstring(String s, int k) {
+
+        HashMap<Character,Integer> d = new HashMap<>();
+        int n = s.length();
+        int count = 0;
+
+        for(int i = 0; i < n; i++){
+            d.clear();
+            for(int j = i; j < n; j++){
+                d.put(s.charAt(j), d.getOrDefault(s.charAt(j),0) + 1);
+                if(check(d,k)){
+                    count = Math.max(count,j-i+1);
+                }
+            }
+        }
+        return count;
+    }
+}
